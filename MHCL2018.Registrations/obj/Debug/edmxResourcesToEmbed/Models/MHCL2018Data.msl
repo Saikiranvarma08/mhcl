@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MHCL2018DBModelStoreContainer" CdmEntityContainer="MHCL2018DBEntities">
+    <EntitySetMapping Name="MhclPlayer">
+      <EntityTypeMapping TypeName="MHCL2018DBModel.MhclPlayer">
+        <MappingFragment StoreEntitySet="MhclPlayer">
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+          <ScalarProperty Name="PlayerName" ColumnName="PlayerName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="MID" ColumnName="MID" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Batsman" ColumnName="Batsman" />
+          <ScalarProperty Name="BatsmanRating" ColumnName="BatsmanRating" />
+          <ScalarProperty Name="Bowler" ColumnName="Bowler" />
+          <ScalarProperty Name="BowlerRating" ColumnName="BowlerRating" />
+          <ScalarProperty Name="AvailabilityComments" ColumnName="AvailabilityComments" />
+          <ScalarProperty Name="OtherComments" ColumnName="OtherComments" />
+          <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MhclTeam">
+      <EntityTypeMapping TypeName="MHCL2018DBModel.MhclTeam">
+        <MappingFragment StoreEntitySet="MhclTeam">
+          <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+          <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+          <ScalarProperty Name="TeamOwnerName" ColumnName="TeamOwnerName" />
+          <ScalarProperty Name="TeamCreateTime" ColumnName="TeamCreateTime" />
+          <ScalarProperty Name="TeamUpdateTime" ColumnName="TeamUpdateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="MhclTeamsPlayers" TypeName="MHCL2018DBModel.MhclTeamsPlayers" StoreEntitySet="MhclTeamsPlayers">
+      <EndProperty Name="MhclPlayer">
+        <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+      </EndProperty>
+      <EndProperty Name="MhclTeam">
+        <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

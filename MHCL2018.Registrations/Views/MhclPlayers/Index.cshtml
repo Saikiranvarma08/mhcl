@@ -1,0 +1,83 @@
+﻿@model IEnumerable<MHCL2018.Registrations.Models.MhclPlayer>
+
+@{
+	ViewBag.Title = "Index";
+}
+<p></p>
+<p>
+	@Html.ActionLink("Click to Add New Player", "Create", null, new { @class = "btn btn-primary btn-lg" })
+</p>
+<h3>ALL AVAILABLE / UNALLOCATED PLAYERS</h3>
+<table id="myTable" class="AltTable">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.PlayerId)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.PlayerName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.MID)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Gender)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Batsman)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.BatsmanRating)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Bowler)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.BowlerRating)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.PlayerId)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.PlayerName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.MID)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Gender)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Batsman)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.BatsmanRating)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Bowler)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.BowlerRating)
+			</td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id = item.PlayerId }) |
+				@Html.ActionLink("Details", "Details", new { id = item.PlayerId }) |
+				@Html.ActionLink("Delete", "Delete", new { id = item.PlayerId })
+			</td>
+		</tr>
+	}
+
+</table>
+@section Scripts {
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#myTable').dataTable();
+		});
+	</script>
+}

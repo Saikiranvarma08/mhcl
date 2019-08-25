@@ -1,0 +1,35 @@
+﻿
+.divTable{
+margin-right: auto; margin-left: auto;
+width: 800px;
+}
+
+.AltTable
+{
+    width: 800px;
+}
+.AltTable tr {
+    transition: background 0.2s ease-in;
+}
+
+.AltTable tr:nth-child(odd) {
+    background: silver;
+}
+
+
+StyleLabel {
+color: #B4886B;
+font-weight: bold;
+display: block;
+width: 150px;
+float: left;
+}
+
+styleTd{
+    background-color: #eee;
+}
+
+btnStyle {
+    max-width: 100px;
+    height: 20px;
+}

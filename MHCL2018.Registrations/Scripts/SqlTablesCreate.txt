@@ -1,0 +1,36 @@
+CREATE TABLE MhclTeam
+( TeamId int NOT NULL,
+  TeamName varchar(200) NOT NULL,
+  TeamOwnerName varchar(200) NOT NULL,
+  TeamCreateTime datetime,
+  TeamUpdateTime datetime,
+  CONSTRAINT MhclTeamPk PRIMARY KEY (TeamId)
+)
+
+CREATE TABLE MhclPlayer
+( PlayerId int NOT NULL,
+  PlayerName varchar(200) NOT NULL,
+  Email varchar(200) NOT NULL,
+  MID varchar(10) NOT NULL,
+  Gender varchar(10) NOT NULL,
+  Batsman varchar(10) NOT NULL,
+  BatsmanRating int NOT NULL,
+  Bowler varchar(10) NOT NULL,
+  BowlerRating int NOT NULL,
+  AvailabilityComments varchar(1000) NOT NULL,
+  OtherComments varchar(1000) NOT NULL,
+  PurchasePrice int
+  CONSTRAINT MhclPlayerPk PRIMARY KEY (PlayerId)
+)
+
+CREATE TABLE MhclTeamsPlayers
+(
+  TeamId INT NOT NULL,
+  PlayerId INT NOT NULL,
+  CONSTRAINT MhclTeamFk
+    FOREIGN KEY (TeamId)
+    REFERENCES MhclTeam(TeamId),
+  CONSTRAINT MhclPlayerFk
+    FOREIGN KEY (PlayerId)
+    REFERENCES MhclPlayer(PlayerId)
+)

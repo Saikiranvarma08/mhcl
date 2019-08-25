@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MHCL2018DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="MhclPlayer">
+    <Key>
+      <PropertyRef Name="PlayerId" />
+    </Key>
+    <Property Name="PlayerId" Type="int" Nullable="false" />
+    <Property Name="PlayerName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="MID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Batsman" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="BatsmanRating" Type="int" Nullable="false" />
+    <Property Name="Bowler" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="BowlerRating" Type="int" Nullable="false" />
+    <Property Name="AvailabilityComments" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="OtherComments" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="PurchasePrice" Type="int" />
+  </EntityType>
+  <EntityType Name="MhclTeam">
+    <Key>
+      <PropertyRef Name="TeamId" />
+    </Key>
+    <Property Name="TeamId" Type="int" Nullable="false" />
+    <Property Name="TeamName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="TeamOwnerName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="TeamCreateTime" Type="datetime" />
+    <Property Name="TeamUpdateTime" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\V-SAYAM\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\MHCL2018.REGISTRATIONS\MHCL2018.REGISTRATIONS\APP_DATA\MHCL2018DB.MDF.dbo.MhclTeamsPlayers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="MhclTeamsPlayers">
+    <Key>
+      <PropertyRef Name="TeamId" />
+      <PropertyRef Name="PlayerId" />
+    </Key>
+    <Property Name="TeamId" Type="int" Nullable="false" />
+    <Property Name="PlayerId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="MhclPlayerFk">
+    <End Role="MhclPlayer" Type="Self.MhclPlayer" Multiplicity="1" />
+    <End Role="MhclTeamsPlayers" Type="Self.MhclTeamsPlayers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MhclPlayer">
+        <PropertyRef Name="PlayerId" />
+      </Principal>
+      <Dependent Role="MhclTeamsPlayers">
+        <PropertyRef Name="PlayerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MhclTeamFk">
+    <End Role="MhclTeam" Type="Self.MhclTeam" Multiplicity="1" />
+    <End Role="MhclTeamsPlayers" Type="Self.MhclTeamsPlayers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MhclTeam">
+        <PropertyRef Name="TeamId" />
+      </Principal>
+      <Dependent Role="MhclTeamsPlayers">
+        <PropertyRef Name="TeamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MHCL2018DBModelStoreContainer">
+    <EntitySet Name="MhclPlayer" EntityType="Self.MhclPlayer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MhclTeam" EntityType="Self.MhclTeam" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MhclTeamsPlayers" EntityType="Self.MhclTeamsPlayers" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="MhclPlayerFk" Association="Self.MhclPlayerFk">
+      <End Role="MhclPlayer" EntitySet="MhclPlayer" />
+      <End Role="MhclTeamsPlayers" EntitySet="MhclTeamsPlayers" />
+    </AssociationSet>
+    <AssociationSet Name="MhclTeamFk" Association="Self.MhclTeamFk">
+      <End Role="MhclTeam" EntitySet="MhclTeam" />
+      <End Role="MhclTeamsPlayers" EntitySet="MhclTeamsPlayers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

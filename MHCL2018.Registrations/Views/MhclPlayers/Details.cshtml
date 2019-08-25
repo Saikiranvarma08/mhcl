@@ -1,0 +1,172 @@
+﻿@model MHCL2018.Registrations.Models.MhclPlayer
+
+@{
+	ViewBag.Title = "Details";
+}
+
+<div>
+	<h4>PLAYER DETAILS</h4>
+	<hr />
+	@using (Html.BeginForm("AllocatePlayer", "MhclPlayers"))
+	{
+		<div class="form-horizontal">
+			<div class="form-group" style="font:bold 16px arial">
+				<div class="col-md-3" style="text-align:right">
+					@Html.DisplayNameFor(model => model.PlayerName)
+				</div>
+				<div class="col-md-3" style="text-align:left">
+					@Html.DisplayFor(model => model.PlayerName)
+				</div>
+				<div class="col-md-3" style="text-align:right">
+					@Html.DisplayNameFor(model => model.Email)
+				</div>
+				<div class="col-md-3" style="text-align:left">
+					@Html.DisplayFor(model => model.Email)
+				</div>
+			</div>
+			<div class="form-group" style="font:bold 16px arial">
+				<div class="col-md-3" style="text-align:right">
+					@Html.DisplayNameFor(model => model.MID)
+				</div>
+				<div class="col-md-3" style="text-align:left">
+					@Html.DisplayFor(model => model.MID)
+				</div>
+				<div class="col-md-3" style="text-align:right">
+					@Html.DisplayNameFor(model => model.Gender)
+				</div>
+				<div class="col-md-3" style="text-align:left">
+					@Html.DisplayFor(model => model.Gender)
+				</div>
+			</div>
+			<div class="form-group" style="font:bold 16px arial">
+				<div class="col-md-3" style="text-align:right">
+					@Html.DisplayNameFor(model => model.Batsman)
+				</div>
+				<div class="col-md-3" style="text-align:left">
+					@Html.DisplayFor(model => model.Batsman)
+				</div>
+				<div class="col-md-3" style="text-align:right">
+					@Html.DisplayNameFor(model => model.BatsmanRating)
+				</div>
+				<div class="col-md-3" style="text-align:left">
+					@Html.DisplayFor(model => model.BatsmanRating)
+				</div>
+			</div>
+			<div class="form-group" style="font:bold 16px arial">
+				<div class="col-md-3" style="text-align:right">
+					@Html.DisplayNameFor(model => model.Bowler)
+				</div>
+				<div class="col-md-3" style="text-align:left">
+					@Html.DisplayFor(model => model.Bowler)
+				</div>
+				<div class="col-md-3" style="text-align:right">
+					@Html.DisplayNameFor(model => model.BowlerRating)
+				</div>
+				<div class="col-md-3" style="text-align:left">
+					@Html.DisplayFor(model => model.BowlerRating)
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-3" style="text-align:right; font:bold 16px arial">
+					@Html.DisplayNameFor(model => model.AvailabilityComments)
+				</div>
+				<div class="col-md-9" style="text-align:left; font:bold 20px arial; color:blue">
+					@Html.DisplayFor(model => model.AvailabilityComments)
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-3" style="text-align:right; font:bold 16px arial">
+					@Html.DisplayNameFor(model => model.OtherComments)
+				</div>
+				<div class="col-md-9" style="text-align:left; font:bold 20px arial; color:red">
+					@Html.DisplayFor(model => model.OtherComments)
+				</div>
+			</div>
+			<br />
+			<div class="form-group" style="font:bold 20px arial">
+				<div class="col-md-3">
+					Enter the Base Price to bid:
+				</div>
+				<div class="col-md-3">
+					@Html.TextBox("txtBasePrice")
+				</div>
+				<div class="col-md-2" style="text-align:left;">
+					<input type="submit" name="priceIncrease" value="START BID" onclick="SetCurrentPrice(); return false;" class="btn btn-lg btn-danger" />
+				</div>
+				<div class="col-md-4" style="text-align:center;">
+					<a>Current Bid</a>
+					<br />
+					<a style="font:bold 96px arial" id="txtCurrentPrice" onkeypress="IncreaseBidPriceOnSpace();" onclick="IncreaseBidPrice();">0</a>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-3" style="text-align:right; font:bold 16px arial">
+					Select Team To Allocate
+				</div>
+				<div class="col-md-9" style="text-align:left; font:bold 24px arial; color:red">
+					@Html.DropDownList("ddlTeamName", ViewData["Teams"] as IEnumerable<SelectListItem>, "Select Team")
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-offset-3 col-md-9">
+					<input type="submit" value="Complete Bid and Allocate Team" class="btn btn-success btn-lg" />
+				</div>
+			</div>
+		</div>
+	}
+</div>
+<p>
+	@Html.ActionLink("Edit", "Edit", new { id = Model.PlayerId }) |
+	@Html.ActionLink("Back to List", "Index")
+</p>
+@section Scripts {
+	<script type="text/javascript">
+		function SetCurrentPrice() {
+			var baseValue = document.getElementById('txtBasePrice').value;
+			if (baseValue.length > 0) {
+				document.getElementById('txtCurrentPrice').innerHTML = baseValue;
+			}
+			else {
+				alert("NO BASE PRICE HAS BEEN ENTERED.");
+			}
+		}
+
+		function IncreaseBidPrice() {
+			var currPrice = parseInt(document.getElementById('txtCurrentPrice').innerHTML);
+			if (currPrice < 500) {
+				document.getElementById('txtCurrentPrice').innerHTML = currPrice + 25;
+			}
+			if (currPrice > 499 && currPrice < 1000) {
+				document.getElementById('txtCurrentPrice').innerHTML = currPrice + 50;
+			}
+			if (currPrice > 999 && currPrice < 2000) {
+				document.getElementById('txtCurrentPrice').innerHTML = currPrice + 100;
+			}
+			if (currPrice > 1999 && currPrice < 10000) {
+				document.getElementById('txtCurrentPrice').innerHTML = currPrice + 200;
+			}
+			document.getElementById('txtBasePrice').value = document.getElementById('txtCurrentPrice').innerHTML;
+		}
+
+		document.body.onkeyup = function (e) {
+			var currPrice = parseInt(document.getElementById('txtCurrentPrice').innerHTML);
+			if (currPrice > 0) {
+				if (e.keyCode == 32) {
+					if (currPrice < 500) {
+						document.getElementById('txtCurrentPrice').innerHTML = currPrice + 25;
+					}
+					if (currPrice > 499 && currPrice < 1000) {
+						document.getElementById('txtCurrentPrice').innerHTML = currPrice + 50;
+					}
+					if (currPrice > 999 && currPrice < 2000) {
+						document.getElementById('txtCurrentPrice').innerHTML = currPrice + 100;
+					}
+					if (currPrice > 1999 && currPrice < 10000) {
+						document.getElementById('txtCurrentPrice').innerHTML = currPrice + 200;
+					}
+					document.getElementById('txtBasePrice').value = document.getElementById('txtCurrentPrice').innerHTML;
+				}
+			}
+		}
+	</script>
+}

@@ -1,0 +1,60 @@
+﻿@model MHCL2018.Registrations.Models.MhclTeam
+
+@{
+	ViewBag.Title = "ShowTeamPlayers";
+}
+
+<h2>ALL PURCHASED PLAYERS</h2>
+
+<div>
+	<h4>@Model.TeamName</h4>
+	<hr />
+	<dl class="dl-horizontal" style="font:bold 14px arial">
+		<dt>
+			@Html.DisplayNameFor(model => model.TeamOwnerName)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.TeamOwnerName)
+		</dd>
+
+	</dl>
+	@if (Model.MhclPlayer.Count > 0)
+	{
+		<table id="myTable" class="AltTable">
+			<thead>
+				<tr>
+					<th>
+						@Html.DisplayNameFor(model => model.MhclPlayer.FirstOrDefault().PlayerName)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.MhclPlayer.FirstOrDefault().PurchasePrice)
+					</th>
+				</tr>
+			</thead>
+			@foreach (var item in Model.MhclPlayer)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.PlayerName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.PurchasePrice)
+					</td>
+				</tr>
+			}
+
+		</table>
+	}
+</div>
+<p>
+	@Html.ActionLink("Edit", "Edit", new { id = Model.TeamId }) |
+	@Html.ActionLink("Back to List", "Index")
+</p>
+@section Scripts {
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#myTable').dataTable();
+		});
+	</script>
+}

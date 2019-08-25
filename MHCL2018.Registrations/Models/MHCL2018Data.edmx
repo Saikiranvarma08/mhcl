@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MHCL2018DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MhclPlayer">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="int" Nullable="false" />
+          <Property Name="PlayerName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="MID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Batsman" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="BatsmanRating" Type="int" Nullable="false" />
+          <Property Name="Bowler" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="BowlerRating" Type="int" Nullable="false" />
+          <Property Name="AvailabilityComments" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="OtherComments" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="PurchasePrice" Type="int" />
+        </EntityType>
+        <EntityType Name="MhclTeam">
+          <Key>
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="TeamId" Type="int" Nullable="false" />
+          <Property Name="TeamName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="TeamOwnerName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="TeamCreateTime" Type="datetime" />
+          <Property Name="TeamUpdateTime" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\V-SAYAM\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\MHCL2018.REGISTRATIONS\MHCL2018.REGISTRATIONS\APP_DATA\MHCL2018DB.MDF.dbo.MhclTeamsPlayers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MhclTeamsPlayers">
+          <Key>
+            <PropertyRef Name="TeamId" />
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="TeamId" Type="int" Nullable="false" />
+          <Property Name="PlayerId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="MhclPlayerFk">
+          <End Role="MhclPlayer" Type="Self.MhclPlayer" Multiplicity="1" />
+          <End Role="MhclTeamsPlayers" Type="Self.MhclTeamsPlayers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MhclPlayer">
+              <PropertyRef Name="PlayerId" />
+            </Principal>
+            <Dependent Role="MhclTeamsPlayers">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MhclTeamFk">
+          <End Role="MhclTeam" Type="Self.MhclTeam" Multiplicity="1" />
+          <End Role="MhclTeamsPlayers" Type="Self.MhclTeamsPlayers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MhclTeam">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="MhclTeamsPlayers">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MHCL2018DBModelStoreContainer">
+          <EntitySet Name="MhclPlayer" EntityType="Self.MhclPlayer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MhclTeam" EntityType="Self.MhclTeam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MhclTeamsPlayers" EntityType="Self.MhclTeamsPlayers" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="MhclPlayerFk" Association="Self.MhclPlayerFk">
+            <End Role="MhclPlayer" EntitySet="MhclPlayer" />
+            <End Role="MhclTeamsPlayers" EntitySet="MhclTeamsPlayers" />
+          </AssociationSet>
+          <AssociationSet Name="MhclTeamFk" Association="Self.MhclTeamFk">
+            <End Role="MhclTeam" EntitySet="MhclTeam" />
+            <End Role="MhclTeamsPlayers" EntitySet="MhclTeamsPlayers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MHCL2018DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MhclPlayer">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="Int32" Nullable="false" />
+          <Property Name="PlayerName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Batsman" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BatsmanRating" Type="Int32" Nullable="false" />
+          <Property Name="Bowler" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BowlerRating" Type="Int32" Nullable="false" />
+          <Property Name="AvailabilityComments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OtherComments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PurchasePrice" Type="Int32" />
+          <NavigationProperty Name="MhclTeam" Relationship="Self.MhclTeamsPlayers" FromRole="MhclPlayer" ToRole="MhclTeam" />
+        </EntityType>
+        <EntityType Name="MhclTeam">
+          <Key>
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="TeamId" Type="Int32" Nullable="false" />
+          <Property Name="TeamName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TeamOwnerName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TeamCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="TeamUpdateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="MhclPlayer" Relationship="Self.MhclTeamsPlayers" FromRole="MhclTeam" ToRole="MhclPlayer" />
+        </EntityType>
+        <Association Name="MhclTeamsPlayers">
+          <End Role="MhclPlayer" Type="Self.MhclPlayer" Multiplicity="*" />
+          <End Role="MhclTeam" Type="Self.MhclTeam" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="MHCL2018DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MhclPlayer" EntityType="Self.MhclPlayer" />
+          <EntitySet Name="MhclTeam" EntityType="Self.MhclTeam" />
+          <AssociationSet Name="MhclTeamsPlayers" Association="Self.MhclTeamsPlayers">
+            <End Role="MhclPlayer" EntitySet="MhclPlayer" />
+            <End Role="MhclTeam" EntitySet="MhclTeam" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MHCL2018DBModelStoreContainer" CdmEntityContainer="MHCL2018DBEntities">
+          <EntitySetMapping Name="MhclPlayer">
+            <EntityTypeMapping TypeName="MHCL2018DBModel.MhclPlayer">
+              <MappingFragment StoreEntitySet="MhclPlayer">
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="PlayerName" ColumnName="PlayerName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Batsman" ColumnName="Batsman" />
+                <ScalarProperty Name="BatsmanRating" ColumnName="BatsmanRating" />
+                <ScalarProperty Name="Bowler" ColumnName="Bowler" />
+                <ScalarProperty Name="BowlerRating" ColumnName="BowlerRating" />
+                <ScalarProperty Name="AvailabilityComments" ColumnName="AvailabilityComments" />
+                <ScalarProperty Name="OtherComments" ColumnName="OtherComments" />
+                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MhclTeam">
+            <EntityTypeMapping TypeName="MHCL2018DBModel.MhclTeam">
+              <MappingFragment StoreEntitySet="MhclTeam">
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="TeamOwnerName" ColumnName="TeamOwnerName" />
+                <ScalarProperty Name="TeamCreateTime" ColumnName="TeamCreateTime" />
+                <ScalarProperty Name="TeamUpdateTime" ColumnName="TeamUpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="MhclTeamsPlayers" TypeName="MHCL2018DBModel.MhclTeamsPlayers" StoreEntitySet="MhclTeamsPlayers">
+            <EndProperty Name="MhclPlayer">
+              <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+            </EndProperty>
+            <EndProperty Name="MhclTeam">
+              <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

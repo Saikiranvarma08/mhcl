@@ -1,0 +1,87 @@
+﻿@model MHCL2018.Registrations.Models.MhclTeam
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style type="text/css">
+	.LockOff {
+		display: none;
+		visibility: hidden;
+	}
+
+	.LockOn {
+		display: block;
+		visibility: visible;
+		position: absolute;
+		z-index: 999;
+		top: 0px;
+		left: 0px;
+		width: 105%;
+		height: 105%;
+		background-color: #ccc;
+		text-align: center;
+		padding-top: 20%;
+		filter: alpha(opacity=75);
+		opacity: 0.75;
+	}
+</style>
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>MhclTeam</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.TeamId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TeamName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TeamName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TeamName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TeamOwnerName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TeamOwnerName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TeamOwnerName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" onclick="skm_LockScreen('We are processing your request...');" />
+            </div>
+        </div>
+
+		<div id="skm_LockPane" class="LockOff"></div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript">
+
+      function skm_LockScreen(str)
+      {
+         var lock = document.getElementById('skm_LockPane');
+         if (lock)
+            lock.className = 'LockOn';
+
+         lock.innerHTML = str;
+      }
+</script> 

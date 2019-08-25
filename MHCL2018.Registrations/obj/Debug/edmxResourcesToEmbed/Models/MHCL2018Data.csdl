@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MHCL2018DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="MhclPlayer">
+    <Key>
+      <PropertyRef Name="PlayerId" />
+    </Key>
+    <Property Name="PlayerId" Type="Int32" Nullable="false" />
+    <Property Name="PlayerName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Batsman" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BatsmanRating" Type="Int32" Nullable="false" />
+    <Property Name="Bowler" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BowlerRating" Type="Int32" Nullable="false" />
+    <Property Name="AvailabilityComments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OtherComments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PurchasePrice" Type="Int32" />
+    <NavigationProperty Name="MhclTeam" Relationship="Self.MhclTeamsPlayers" FromRole="MhclPlayer" ToRole="MhclTeam" />
+  </EntityType>
+  <EntityType Name="MhclTeam">
+    <Key>
+      <PropertyRef Name="TeamId" />
+    </Key>
+    <Property Name="TeamId" Type="Int32" Nullable="false" />
+    <Property Name="TeamName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TeamOwnerName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TeamCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="TeamUpdateTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="MhclPlayer" Relationship="Self.MhclTeamsPlayers" FromRole="MhclTeam" ToRole="MhclPlayer" />
+  </EntityType>
+  <Association Name="MhclTeamsPlayers">
+    <End Role="MhclPlayer" Type="Self.MhclPlayer" Multiplicity="*" />
+    <End Role="MhclTeam" Type="Self.MhclTeam" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="MHCL2018DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="MhclPlayer" EntityType="Self.MhclPlayer" />
+    <EntitySet Name="MhclTeam" EntityType="Self.MhclTeam" />
+    <AssociationSet Name="MhclTeamsPlayers" Association="Self.MhclTeamsPlayers">
+      <End Role="MhclPlayer" EntitySet="MhclPlayer" />
+      <End Role="MhclTeam" EntitySet="MhclTeam" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

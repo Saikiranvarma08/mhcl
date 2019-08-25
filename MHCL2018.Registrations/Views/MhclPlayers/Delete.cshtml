@@ -1,0 +1,112 @@
+﻿@model MHCL2018.Registrations.Models.MhclPlayer
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>MhclPlayer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Batsman)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Batsman)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BatsmanRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BatsmanRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bowler)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bowler)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BowlerRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BowlerRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailabilityComments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvailabilityComments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherComments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherComments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchasePrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchasePrice)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

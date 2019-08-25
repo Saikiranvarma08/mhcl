@@ -1,0 +1,74 @@
+﻿@model IEnumerable<MHCL2018.Registrations.Models.MhclTeamFullInfo>
+
+@{
+	ViewBag.Title = "Index";
+}
+<p></p>
+<p>
+	@Html.ActionLink("Create New Team", "Create", null, new { @class = "btn btn-primary btn-lg" })
+</p>
+<h2 style="color:darkgreen">ALL TEAMS - MAXIMUM PURCHASE AMOUNT: 25000</h2>
+<table id="myTable" class="AltTable">
+	<thead>
+		<tr style="text-align:center">
+			<th>
+				@Html.DisplayNameFor(model => model.TeamName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.TeamOwnerName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.TotalPlayerBought)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.TotalPurchasePrice)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.RemainingPurchasePrice)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.AverageCostOfRemainingPlayers)
+			</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	@foreach (var item in Model)
+	{
+		<tr style="text-align:center">
+			<td>
+				@Html.DisplayFor(modelItem => item.TeamName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.TeamOwnerName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.TotalPlayerBought)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.TotalPurchasePrice)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.RemainingPurchasePrice)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.AverageCostOfRemainingPlayers)
+			</td>
+			<td>
+				@Html.ActionLink("View Team Players", "ShowTeamPlayers", new { id = item.TeamId }, new { @class = "btn btn-warning" })
+			</td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id = item.TeamId }) |
+				@Html.ActionLink("Delete", "Delete", new { id = item.TeamId })
+			</td>
+		</tr>
+	}
+
+</table>
+@section Scripts {
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#myTable').dataTable();
+		});
+	</script>
+}
